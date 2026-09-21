@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renkan (連環)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <h1 class="kana-h1">Renkan (連環)</h1>
+        <div class="tab-buttons">
+            <button class="tab-btn active" id="kanjiTabBtn" onclick="switchTab('kanji')">Kanji</button>
+            <button class="tab-btn" id="radicalTabBtn" onclick="switchTab('radicals')">Radicals</button>
+        </div>
+    </div>
+
+    <div id="main-section">
+        
+        <div id="kanjiView" class="tab-content active">
+            <div id="kanjiContainer">
+
+            </div>
+        </div>
+
+        <div id="radicalsView" class="tab-content">
+            <div class="kanji-lesson">
+                <h3>All Radicals</h3>
+                <p>Click a radical to view the Kanji characters formed by it.</p>
+                <div id="radicalsGrid" class="kanji-grid">
+  
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay" onclick="closeModalOnOuterClick(event)">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+            <div id="modalBody">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
