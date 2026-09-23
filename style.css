@@ -46,6 +46,34 @@ body {
     color: #111111;
 }
 
+.search-container {
+    width: 100%;
+    max-width: 480px;
+    margin: 18px auto 0 auto;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 11px 18px;
+    font-size: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 24px;
+    background-color: #ffffff;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#searchInput::placeholder {
+    color: #a0a0a0;
+}
+
+#searchInput:focus {
+    border-color: #e6b800;
+    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.25);
+}
+
 .tab-content {
     display: none;
 }
@@ -266,6 +294,11 @@ body {
 }
 
 @media (max-width: 768px) {
+    .search-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
     .kanji-grid {
         grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
         gap: 6px;

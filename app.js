@@ -24,6 +24,29 @@ function init() {
     });
 }
 
+function handleSearch(query) {
+    const term = query.toLowerCase().trim();
+
+    document.querySelectorAll('#kanjiContainer .kanji-button').forEach(btn => {
+        const meaning = (btn.title || '').toLowerCase();
+        const symbol = btn.textContent.toLowerCase();
+        const matches = meaning.includes(term) || symbol.includes(term);
+        btn.style.display = matches ? 'flex' : 'none';
+    });
+
+    document.querySelectorAll('#kanjiContainer .kanji-lesson').forEach(lesson => {
+        const visibleButtons = lesson.querySelectorAll('.kanji-button[style="display: flex;"], .kanji-button:not([style*="display: none"])');
+        lesson.style.display = visibleButtons.length > 0 ? 'block' : 'none';
+    });
+
+    document.querySelectorAll('#radicalsGrid .kanji-button').forEach(btn => {
+        const name = (btn.title || '').toLowerCase();
+        const symbol = btn.textContent.toLowerCase();
+        const matches = name.includes(term) || symbol.includes(term);
+        btn.style.display = matches ? 'flex' : 'none';
+    });
+}
+
 function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
