@@ -1,4 +1,4 @@
-{
+﻿{
   "一": {
     "symbol": "一",
     "name": "one",
@@ -531,7 +531,7 @@
   },
   "ハ": {
     "symbol": "ハ",
-    "name": "",
+    "name": "fins",
     "is_standalone_kanji": false,
     "kanji_ids": [
       6,
@@ -14841,7 +14841,7 @@
   },
   "⻏": {
     "symbol": "⻏",
-    "name": "",
+    "name": "Building",
     "is_standalone_kanji": false,
     "kanji_ids": [
       1788,
