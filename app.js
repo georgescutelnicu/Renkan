@@ -1,7 +1,13 @@
+/* ==========================================================================
+   Global State
+   ========================================================================== */
 let kanjiData = {};
 let radicalsData = {};
 
+// Load JSON databases on page load and build initial UI
 function init() {
+    loadSavedTheme();
+
     Promise.all([
         fetch('data/kanji_db.json').then(res => {
             if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
@@ -24,9 +30,15 @@ function init() {
     });
 }
 
+/* ==========================================================================
+   Search & Navigation
+   ========================================================================== */
+
+// Filter Kanji and Radicals based on search input
 function handleSearch(query) {
     const term = query.toLowerCase().trim();
 
+    // Search Kanji buttons by meaning and character
     document.querySelectorAll('#kanjiContainer .kanji-button').forEach(btn => {
         const meaning = (btn.title || '').toLowerCase();
         const symbol = btn.textContent.toLowerCase();
@@ -34,11 +46,13 @@ function handleSearch(query) {
         btn.style.display = matches ? 'flex' : 'none';
     });
 
+    // Hide empty Kanji grade sections
     document.querySelectorAll('#kanjiContainer .kanji-lesson').forEach(lesson => {
         const visibleButtons = lesson.querySelectorAll('.kanji-button[style="display: flex;"], .kanji-button:not([style*="display: none"])');
         lesson.style.display = visibleButtons.length > 0 ? 'block' : 'none';
     });
 
+    // Search Radical buttons by name and character
     document.querySelectorAll('#radicalsGrid .kanji-button').forEach(btn => {
         const name = (btn.title || '').toLowerCase();
         const symbol = btn.textContent.toLowerCase();
@@ -47,6 +61,7 @@ function handleSearch(query) {
     });
 }
 
+// Switch view between Kanji tab and Radicals tab
 function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -60,6 +75,11 @@ function switchTab(tabName) {
     }
 }
 
+/* ==========================================================================
+   Tab Rendering
+   ========================================================================== */
+
+// Group Kanji characters by grade and render them into the main grid
 function renderKanjiTab() {
     const container = document.getElementById('kanjiContainer');
     container.innerHTML = '';
@@ -74,6 +94,7 @@ function renderKanjiTab() {
         "Grade 7+": []
     };
 
+    // Categorize kanji into grades
     for (const [symbol, info] of Object.entries(kanjiData)) {
         const grade = Number(info.grade);
         if (grade >= 1 && grade <= 6) {
@@ -83,6 +104,7 @@ function renderKanjiTab() {
         }
     }
 
+    // Build section HTML for each grade group
     for (const [gradeName, items] of Object.entries(grades)) {
         if (items.length === 0) continue;
 
@@ -119,6 +141,7 @@ function renderKanjiTab() {
     }
 }
 
+// Render all radical buttons into the Radicals tab
 function renderRadicalsTab() {
     const grid = document.getElementById('radicalsGrid');
     grid.innerHTML = '';
@@ -133,14 +156,20 @@ function renderRadicalsTab() {
     }
 }
 
+/* ==========================================================================
+   Animations & SVG Handlers
+   ========================================================================== */
+
+// Animate SVG stroke paths sequentially to show stroke order
 function animateSvgStrokes(svgElement) {
     const strokePaths = svgElement.querySelectorAll("path");
     if (strokePaths.length === 0) return;
 
-    const strokeDuration = 0.45;
-    const pauseDuration = 3.0;
+    const strokeDuration = 0.45; // Seconds per stroke
+    const pauseDuration = 3.0;   // Seconds pause before replay
     const pathLengths = [];
 
+    // Calculate length of each stroke path
     strokePaths.forEach((path) => {
         const length = path.getTotalLength();
         pathLengths.push(length);
@@ -148,6 +177,7 @@ function animateSvgStrokes(svgElement) {
         path.style.strokeDashoffset = length;
     });
 
+    // Continuously loop drawing animation
     function startDrawingLoop() {
         let totalTime = 0;
 
@@ -156,6 +186,7 @@ function animateSvgStrokes(svgElement) {
             path.style.transition = 'none';
             path.style.strokeDashoffset = length;
 
+            // Trigger reflow to restart transition
             path.getBoundingClientRect();
 
             path.style.transition = `stroke-dashoffset ${strokeDuration}s ease-in-out ${totalTime}s`;
@@ -166,6 +197,7 @@ function animateSvgStrokes(svgElement) {
 
         const cycleTotalMs = (totalTime + pauseDuration) * 1000;
 
+        // Clear previous animation loop timer
         if (svgElement.dataset.loopTimer) {
             clearTimeout(Number(svgElement.dataset.loopTimer));
         }
@@ -180,6 +212,11 @@ function animateSvgStrokes(svgElement) {
     startDrawingLoop();
 }
 
+/* ==========================================================================
+   Modal Controls
+   ========================================================================== */
+
+// Open modal pop-up with detailed Kanji information
 function openKanjiModal(symbol) {
     const info = kanjiData[symbol];
     if (!info) return;
@@ -194,6 +231,7 @@ function openKanjiModal(symbol) {
     const gradeNum = Number(info.grade);
     const displayGrade = (gradeNum >= 7) ? '7+' : (info.grade || 'N/A');
 
+    // Build HTML for radical components
     let radicalsHTML = '';
     if (radicals.length > 0) {
         radicalsHTML = `
@@ -213,6 +251,7 @@ function openKanjiModal(symbol) {
         `;
     }
 
+    // Populate modal content
     modalBody.innerHTML = `
         <div class="kanji-character">
             <div class="kanji-display-box" id="kanjiSvgContainer"></div>
@@ -240,6 +279,7 @@ function openKanjiModal(symbol) {
 
     document.getElementById('modalOverlay').classList.add('active');
 
+    // Load animated stroke SVG or show text fallback
     if (strokeSvgUrl) {
         fetch(strokeSvgUrl)
             .then(res => res.text())
@@ -275,6 +315,7 @@ function openKanjiModal(symbol) {
     }
 }
 
+// Open modal pop-up with Radical details and matching Kanji
 function openRadicalModal(symbol) {
     const info = radicalsData[symbol];
     if (!info) return;
@@ -310,13 +351,40 @@ function openRadicalModal(symbol) {
     document.getElementById('modalOverlay').classList.add('active');
 }
 
+// Close the modal popup
 function closeModal() {
     document.getElementById('modalOverlay').classList.remove('active');
 }
 
+// Close modal when clicking on the background overlay
 function closeModalOnOuterClick(event) {
     if (event.target.id === 'modalOverlay') {
         closeModal();
+    }
+}
+
+/* ==========================================================================
+   Theme Control (Dark / Light Mode)
+   ========================================================================== */
+
+function toggleTheme() {
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    updateThemeButtonLabel(isDarkMode);
+}
+
+function updateThemeButtonLabel(isDarkMode) {
+    const btn = document.getElementById('themeToggleBtn');
+    if (btn) {
+        btn.textContent = isDarkMode ? '☀️ Light' : '🌙 Dark';
+    }
+}
+
+function loadSavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        updateThemeButtonLabel(true);
     }
 }
 

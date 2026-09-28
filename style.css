@@ -11,9 +11,36 @@ body {
     margin-bottom: 25px;
 }
 
+.header-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto 15px auto;
+}
+
 .kana-h1 {
     font-size: 2.2rem;
-    margin-bottom: 15px;
+    margin: 0;
+}
+
+.theme-toggle-btn {
+    position: absolute;
+    right: 0;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    color: #333333;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.theme-toggle-btn:hover {
+    background-color: #f0f0f0;
 }
 
 .tab-buttons {
@@ -293,6 +320,125 @@ body {
     color: #444444;
 }
 
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .theme-toggle-btn {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    border-color: #444444;
+}
+
+body.dark-mode .theme-toggle-btn:hover {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode #searchInput {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-color: #333333;
+}
+
+body.dark-mode #searchInput::placeholder {
+    color: #777777;
+}
+
+body.dark-mode #searchInput:focus {
+    border-color: #ffcc00;
+}
+
+body.dark-mode .tab-btn {
+    background-color: #1e1e1e;
+    color: #cccccc;
+    border-color: #333333;
+}
+
+body.dark-mode .tab-btn:hover {
+    background-color: #2c2912;
+    border-color: #e6b800;
+    color: #ffffff;
+}
+
+body.dark-mode .tab-btn.active {
+    background-color: #ffcc00;
+    border-color: #d6a300;
+    color: #111111;
+}
+
+body.dark-mode .kanji-lesson h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .kanji-lesson p,
+body.dark-mode .text-muted,
+body.dark-mode .grade-info {
+    color: #aaaaaa;
+}
+
+body.dark-mode .lesson-divider {
+    border-top-color: #2a2a2a;
+}
+
+body.dark-mode .kanji-button {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-color: #333333;
+}
+
+body.dark-mode .kanji-button:hover {
+    background-color: #2c2912;
+    border-color: #ffcc00;
+    color: #ffffff;
+}
+
+body.dark-mode .kanji-button:active {
+    background-color: #ffcc00;
+    color: #000000;
+}
+
+body.dark-mode .modal-card {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .modal-close-btn {
+    color: #aaaaaa;
+}
+
+body.dark-mode .modal-close-btn:hover {
+    color: #ffffff;
+}
+
+body.dark-mode .kanji-display-box {
+    background-color: #141414;
+    border-color: #444444;
+}
+
+body.dark-mode .kanji-meaning {
+    color: #ffffff;
+}
+
+body.dark-mode .reading-card {
+    background-color: #262110;
+    border-color: #5c4700;
+    color: #ffe680;
+}
+
+body.dark-mode .reading-title {
+    color: #ffcc00;
+}
+
+body.dark-mode .section-subhead {
+    border-bottom-color: #333333;
+    color: #dddddd;
+}
+
+body.dark-mode #kanjiSvgContainer svg path {
+    stroke: #ffffff !important;
+}
+
 @media (max-width: 768px) {
     .search-container {
         max-width: 100%;
@@ -310,6 +456,17 @@ body {
 
     .modal-card {
         padding: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-top {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .theme-toggle-btn {
+        position: static;
     }
 }
 

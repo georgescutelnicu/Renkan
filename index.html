@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renkan (連環)</title>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="header">
-        <h1 class="kana-h1">Renkan (連環)</h1>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-top">
+            <h1 class="kana-h1">Renkan (連環)</h1>
+            <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">🌙 Dark</button>
+        </div>
+
+        <!-- View Switcher Tabs -->
         <div class="tab-buttons">
             <button class="tab-btn active" id="kanjiTabBtn" onclick="switchTab('kanji')">Kanji</button>
             <button class="tab-btn" id="radicalTabBtn" onclick="switchTab('radicals')">Radicals</button>
         </div>
+
+        <!-- Global Search Bar -->
         <div class="search-container">
             <input 
                 type="text" 
@@ -22,34 +31,33 @@
                 oninput="handleSearch(this.value)"
             >
         </div>
-    </div>
+    </header>
 
-    <div id="main-section">
+    <!-- Main Content Container -->
+    <main id="main-section">
         
-        <div id="kanjiView" class="tab-content active">
-            <div id="kanjiContainer">
+        <!-- Kanji View -->
+        <section id="kanjiView" class="tab-content active">
+            <div id="kanjiContainer"></div>
+        </section>
 
-            </div>
-        </div>
-
-        <div id="radicalsView" class="tab-content">
+        <!-- Radicals View -->
+        <section id="radicalsView" class="tab-content">
             <div class="kanji-lesson">
                 <h3>All Radicals</h3>
                 <p>Click a radical to view the Kanji characters formed by it.</p>
-                <div id="radicalsGrid" class="kanji-grid">
-  
-                </div>
+                <div id="radicalsGrid" class="kanji-grid"></div>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </main>
 
+    <!-- Character Details Modal Overlay -->
     <div id="modalOverlay" class="modal-overlay" onclick="closeModalOnOuterClick(event)">
         <div class="modal-card">
-            <button class="modal-close-btn" onclick="closeModal()">&times;</button>
-            <div id="modalBody">
-
-            </div>
+            <button class="modal-close-btn" onclick="closeModal()" aria-label="Close modal">&times;</button>
+            <!-- Dynamic Modal Content -->
+            <div id="modalBody"></div>
         </div>
     </div>
 
