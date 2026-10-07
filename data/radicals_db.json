@@ -3736,7 +3736,7 @@
   },
   "｜": {
     "symbol": "｜",
-    "name": "",
+    "name": "stick",
     "is_standalone_kanji": false,
     "kanji_ids": [
       30,
@@ -3830,7 +3830,7 @@
   },
   "ノ": {
     "symbol": "ノ",
-    "name": "",
+    "name": "slide",
     "is_standalone_kanji": false,
     "kanji_ids": [
       35,
@@ -5828,7 +5828,7 @@
   },
   "⺌": {
     "symbol": "⺌",
-    "name": "",
+    "name": "triceraptor",
     "is_standalone_kanji": false,
     "kanji_ids": [
       105,
@@ -7885,7 +7885,7 @@
   },
   "⺾": {
     "symbol": "⺾",
-    "name": "",
+    "name": "grass",
     "is_standalone_kanji": false,
     "kanji_ids": [
       206,
@@ -8183,7 +8183,7 @@
   },
   "𠆢": {
     "symbol": "𠆢",
-    "name": "",
+    "name": "hat",
     "is_standalone_kanji": false,
     "kanji_ids": [
       232,
@@ -8570,7 +8570,7 @@
   },
   "辶": {
     "symbol": "辶",
-    "name": "",
+    "name": "scooter",
     "is_standalone_kanji": false,
     "kanji_ids": [
       258,
@@ -11067,7 +11067,7 @@
   },
   "ヨ": {
     "symbol": "ヨ",
-    "name": "",
+    "name": "wolverine",
     "is_standalone_kanji": false,
     "kanji_ids": [
       552,
@@ -12664,7 +12664,7 @@
   },
   "⺅": {
     "symbol": "⺅",
-    "name": "",
+    "name": "leader",
     "is_standalone_kanji": false,
     "kanji_ids": [
       922,
@@ -13305,7 +13305,7 @@
   },
   "マ": {
     "symbol": "マ",
-    "name": "",
+    "name": "mama",
     "is_standalone_kanji": false,
     "kanji_ids": [
       1188,
@@ -13411,7 +13411,7 @@
   },
   "⺹": {
     "symbol": "⺹",
-    "name": "",
+    "name": "coffin",
     "is_standalone_kanji": false,
     "kanji_ids": [
       1213,
@@ -13525,7 +13525,7 @@
   },
   "⻖": {
     "symbol": "⻖",
-    "name": "",
+    "name": "building",
     "is_standalone_kanji": false,
     "kanji_ids": [
       1254,
